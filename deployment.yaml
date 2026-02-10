@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: automative-deployment
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: automative
+  template:
+    metadata:
+      labels:
+        app: automative
+    spec:
+      containers:
+      - name: automative-container
+        image: automative-backend:v2
+        ports:
+        - containerPort: 8000
